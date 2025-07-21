@@ -1,0 +1,36 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario</title>
+</head>
+<body>
+  <h2>Formulario de contacto</h2>
+  <form id="contactForm">
+    <label>Nombre: <input type="text" id="nombre"></label><br>
+    <label>Email: <input type="email" id="email"></label><br>
+    <label>Mensaje: <textarea id="mensaje"></textarea></label><br>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = {
+        nombre: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        mensaje: document.getElementById('mensaje').value
+      };
+
+      fetch('http://localhost:3000/formulario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(res => alert("Formulario enviado"))
+      .catch(err => alert("Error al enviar"));
+    });
+  </script>
+</body>
+</html>
